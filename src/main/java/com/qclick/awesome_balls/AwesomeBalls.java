@@ -12,7 +12,7 @@ import org.apache.logging.log4j.Logger;
 
 
 // Значение здесь должно соответствовать записи в файле META-INF/mods.toml
-@Mod("Awesome_balls")
+@Mod("awesome_balls")
 public class AwesomeBalls
 {
     // Прямая ссылка на регистратор log4j.
