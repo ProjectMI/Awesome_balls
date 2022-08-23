@@ -16,28 +16,24 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 
 public class CustomInventory implements IInventory {
 	
-	//Константа которая представляет кол-во добавленных кастомных слотов. У нас их будет 8
+	//РљРѕРЅСЃС‚Р°РЅС‚Р° РєРѕС‚РѕСЂР°СЏ РїСЂРµРґСЃС‚Р°РІР»СЏРµС‚ РєРѕР»-РІРѕ РґРѕР±Р°РІР»РµРЅРЅС‹С… РєР°СЃС‚РѕРјРЅС‹С… СЃР»РѕС‚РѕРІ. РЈ РЅР°СЃ РёС… Р±СѓРґРµС‚ 8
 	public static final int INV_SIZE = 8;
-		
-	//Список в котором хранятся предметы. Если мы кладем предмет в слот в кастомном инвентаре, он добавляется в этот список. Размер списка должен
-	//быть таким же, как и кол-во кастомных слотов, т.е. 8
+
+	/*РЎРїРёСЃРѕРє РІ РєРѕС‚РѕСЂРѕРј С…СЂР°РЅСЏС‚СЃСЏ РїСЂРµРґРјРµС‚С‹. Р•СЃР»Рё РјС‹ РєР»Р°РґРµРј РїСЂРµРґРјРµС‚ РІ СЃР»РѕС‚ РІ РєР°СЃС‚РѕРјРЅРѕРј РёРЅРІРµРЅС‚Р°СЂРµ,
+	РѕРЅ РґРѕР±Р°РІР»СЏРµС‚СЃСЏ РІ СЌС‚РѕС‚ СЃРїРёСЃРѕРє. Р Р°Р·РјРµСЂ СЃРїРёСЃРєР° РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ С‚Р°РєРёРј Р¶Рµ, РєР°Рє Рё РєРѕР»-РІРѕ РєР°СЃС‚РѕРјРЅС‹С… СЃР»РѕС‚РѕРІ, С‚.Рµ. 8*/
 	private NonNullList<ItemStack>inventory = NonNullList.<ItemStack>withSize(INV_SIZE, ItemStack.EMPTY);
 	
-	//Конструктор
+	//РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
 	public CustomInventory() {}
 	
-	/**
-	 * Имя инвентаря. Можно потом использовать в GUI
-	 */
+	//РРјСЏ РёРЅРІРµРЅС‚Р°СЂСЏ. РњРѕР¶РЅРѕ РїРѕС‚РѕРј РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РІ GUI
 	@Override
 	public String getName() {
 		
 		return "Inventory";
 	}
 
-	/**
-	 * Имеет ли инвентарь свое кастомное имя. Да, имеет.
-	 */
+	//РРјРµРµС‚ Р»Рё РёРЅРІРµРЅС‚Р°СЂСЊ СЃРІРѕРµ РєР°СЃС‚РѕРјРЅРѕРµ РёРјСЏ? Р”Р°, РёРјРµРµС‚
 	@Override
 	public boolean hasCustomName() {
 		
@@ -50,36 +46,28 @@ public class CustomInventory implements IInventory {
 		 return (ITextComponent)(this.hasCustomName() ? new TextComponentString(this.getName()) : new TextComponentTranslation(this.getName(), new Object[0]));
 	}
 
-	/**
-	 * Возвращает размер инвентаря
-	 */
+	//Р’РѕР·РІСЂР°С‰Р°РµС‚ СЂР°Р·РјРµСЂ РёРЅРІРµРЅС‚Р°СЂСЏ
 	@Override
 	public int getSizeInventory() {
 		
 		return inventory.size();
 	}
 
-	/**
-	 * Возвращает ItemStack что лежит по указанному индексу
-	 */
+	//Р’РѕР·РІСЂР°С‰Р°РµС‚ ItemStack С‡С‚Рѕ Р»РµР¶РёС‚ РїРѕ СѓРєР°Р·Р°РЅРЅРѕРјСѓ РёРЅРґРµРєСЃСѓ
 	@Override
 	public ItemStack getStackInSlot(int index) {
 		
 		return index >= 0 && index < this.inventory.size() ? (ItemStack)this.inventory.get(index) : ItemStack.EMPTY;
 	}
 	
-	/**
-	 * Возвращает список с хранящимися в инвентаре предметами
-	 * @return Список с хранящимися в инвентаре предметами
-	 */
+	//Р’РѕР·РІСЂР°С‰Р°РµС‚ СЃРїРёСЃРѕРє СЃ С…СЂР°РЅСЏС‰РёРјРёСЃСЏ РІ РёРЅРІРµРЅС‚Р°СЂРµ РїСЂРµРґРјРµС‚Р°РјРё
+	//     @return РЎРїРёСЃРѕРє СЃ С…СЂР°РЅСЏС‰РёРјРёСЃСЏ РІ РёРЅРІРµРЅС‚Р°СЂРµ РїСЂРµРґРјРµС‚Р°РјРё
 	public NonNullList<ItemStack> getStacks(){
 		
 		return this.inventory;
 	}
 
-	/**
-	 * Удаляет определенное количество элементов из слота инвентаря и возвращает их в виде нового списка.
-	 */
+	//РЈРґР°Р»СЏРµС‚ РѕРїСЂРµРґРµР»РµРЅРЅРѕРµ РєРѕР»РёС‡РµСЃС‚РІРѕ СЌР»РµРјРµРЅС‚РѕРІ РёР· СЃР»РѕС‚Р° РёРЅРІРµРЅС‚Р°СЂСЏ Рё РІРѕР·РІСЂР°С‰Р°РµС‚ РёС… РІ РІРёРґРµ РЅРѕРІРѕРіРѕ СЃРїРёСЃРєР°
 	@Override
 	public ItemStack decrStackSize(int index, int count) {
 		
@@ -91,9 +79,7 @@ public class CustomInventory implements IInventory {
         return itemstack;
 	}
 
-	/**
-	 * Удаляет стак из указанного слота и возвращает его.
-	 */
+	//РЈРґР°Р»СЏРµС‚ СЃС‚Р°Рє РёР· СѓРєР°Р·Р°РЅРЅРѕРіРѕ СЃР»РѕС‚Р° Рё РІРѕР·РІСЂР°С‰Р°РµС‚ РµРіРѕ
 	@Override
 	public ItemStack removeStackFromSlot(int index) {
 	
@@ -107,10 +93,7 @@ public class CustomInventory implements IInventory {
 	        }
 	}
 
-	/**
-	 * Добавляет стак в указанный слот
-	 * 
-	 */
+	//Р”РѕР±Р°РІР»СЏРµС‚ СЃС‚Р°Рє РІ СѓРєР°Р·Р°РЅРЅС‹Р№ СЃР»РѕС‚
 	@Override
     public void setInventorySlotContents(int index, ItemStack stack) {
 		
@@ -121,44 +104,31 @@ public class CustomInventory implements IInventory {
         }
         this.markDirty();
     }
-	
-	/**
-	 * Возвращает true если весь инвентарь пустой. Если не пустой - возвращает false
-	 */
+
+	// Р’РѕР·РІСЂР°С‰Р°РµС‚ true РµСЃР»Рё РІРµСЃСЊ РёРЅРІРµРЅС‚Р°СЂСЊ РїСѓСЃС‚РѕР№. Р•СЃР»Рё РЅРµ РїСѓСЃС‚РѕР№ - РІРѕР·РІСЂР°С‰Р°РµС‚ false
 	@Override
 	public boolean isEmpty() {
-		
 		for (ItemStack itemstack : this.inventory) {
 			if (!itemstack.isEmpty()) {
-	                return false;
-	         }
-	    }
-	    return true;
+				return false;
+			}
+		}
+		return true;
 	}
 
-	/**
-	 * Возвращает максимальный размер стака в слоте
-	 */
+	//Р’РѕР·РІСЂР°С‰Р°РµС‚ РјР°РєСЃРёРјР°Р»СЊРЅС‹Р№ СЂР°Р·РјРµСЂ СЃС‚Р°РєР° РІ СЃР»РѕС‚Рµ
 	@Override
 	public int getInventoryStackLimit() {
-		
 		return 64;
 	}
 
-	/**
-	 * Для тайл энтити. Нам он не надо
-	 */
+	//Р”Р»СЏ С‚Р°Р№Р» СЌРЅС‚РёС‚Рё. РќР°Рј РѕРЅ РЅРµ РЅР°РґРѕ
 	@Override
-	public void markDirty() {
-		
-    }
+	public void markDirty() { }
 
-	/**
-	 * Может ли игрок ипользовать этот инвентарь
-	 */
+	//РњРѕР¶РµС‚ Р»Рё РёРіСЂРѕРє РёРїРѕР»СЊР·РѕРІР°С‚СЊ СЌС‚РѕС‚ РёРЅРІРµРЅС‚Р°СЂСЊ
 	@Override
 	public boolean isUsableByPlayer(EntityPlayer player) {
-	
 		return true;
 	}
 
@@ -168,19 +138,16 @@ public class CustomInventory implements IInventory {
 	@Override
 	public void closeInventory(EntityPlayer player) {}
 
-	/**
-	 * Может ли автоматика класть предметы в слоты с указанным индексом
-	 */
+	//РњРѕР¶РµС‚ Р»Рё Р°РІС‚РѕРјР°С‚РёРєР° РєР»Р°СЃС‚СЊ РїСЂРµРґРјРµС‚С‹ РІ СЃР»РѕС‚С‹ СЃ СѓРєР°Р·Р°РЅРЅС‹Рј РёРЅРґРµРєСЃРѕРј
+
 	@Override
 	public boolean isItemValidForSlot(int index, ItemStack stack) {
-	
 		return true;
 	}
 
-	//Эти три метода ниже пока не нужны
+	//Р­С‚Рё С‚СЂРё РјРµС‚РѕРґР° РЅРёР¶Рµ РїРѕРєР° РЅРµ РЅСѓР¶РЅС‹
 	@Override
 	public int getField(int id) {
-
 		return 0;
 	}
 
@@ -189,47 +156,35 @@ public class CustomInventory implements IInventory {
 
 	@Override
 	public int getFieldCount() {
-		
 		return 0;
 	}
 
-	/**
-	 * Очистка инвентаря
-	 */
+	//РћС‡РёСЃС‚РєР° РёРЅРІРµРЅС‚Р°СЂСЏ
+
 	@Override
-    public void clear() {
-		
-        this.inventory.clear();
-    }
-	
-	/**
-	 * Этот метод будет вызываться при сохранении инфы в НБТ КАПы, чтобы, например при перезаходе предметы не пропали из инвентаря
-	 * @param compound
-	 */
-	public void writeToNBT(NBTTagCompound compound) {
-		
-		 ItemStackHelper.saveAllItems(compound, this.inventory);	
+	public void clear() {
+		this.inventory.clear();
 	}
 
-	/**
-	 * Этот метод будет вызываться при чтении инфы из НБТ КАПы. Достаем из НБТ КАПы стаки и заполняем инвентарь
-	 * @param compound
-	 */
+	/**Р­С‚РѕС‚ РјРµС‚РѕРґ Р±СѓРґРµС‚ РІС‹Р·С‹РІР°С‚СЊСЃСЏ РїСЂРё СЃРѕС…СЂР°РЅРµРЅРёРё РёРЅС„С‹ РІ РќР‘Рў РљРђРџС‹, С‡С‚РѕР±С‹, РЅР°РїСЂРёРјРµСЂ РїСЂРё РїРµСЂРµР·Р°С…РѕРґРµ РїСЂРµРґРјРµС‚С‹ РЅРµ РїСЂРѕРїР°Р»Рё РёР· РёРЅРІРµРЅС‚Р°СЂСЏ
+	 @param compound*/
+	public void writeToNBT(NBTTagCompound compound) {
+		ItemStackHelper.saveAllItems(compound, this.inventory);
+	}
+
+	/**Р­С‚РѕС‚ РјРµС‚РѕРґ Р±СѓРґРµС‚ РІС‹Р·С‹РІР°С‚СЊСЃСЏ РїСЂРё С‡С‚РµРЅРёРё РёРЅС„С‹ РёР· РќР‘Рў РљРђРџС‹. Р”РѕСЃС‚Р°РµРј РёР· РќР‘Рў РљРђРџС‹ СЃС‚Р°РєРё Рё Р·Р°РїРѕР»РЅСЏРµРј РёРЅРІРµРЅС‚Р°СЂСЊ
+	 @param compound */
 	public void readFromNBT(NBTTagCompound compound) {
-		
 		this.inventory = NonNullList.<ItemStack>withSize(this.getSizeInventory(), ItemStack.EMPTY);
 		ItemStackHelper.loadAllItems(compound, this.inventory);
 	}
-	
-	/**
-	 * Копируем стаки из другого инвентаря в этот. Используется в PlayerEvent.Clone Event, да бы сохранить содержимое инвентаря, например когда игрок проходит через портал в Энд
-	 * @param inv
-	 */
+
+	/** РљРѕРїРёСЂСѓРµРј СЃС‚Р°РєРё РёР· РґСЂСѓРіРѕРіРѕ РёРЅРІРµРЅС‚Р°СЂСЏ РІ СЌС‚РѕС‚. РСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РІ PlayerEvent.Clone Event, РґР°Р±С‹ СЃРѕС…СЂР°РЅРёС‚СЊ СЃРѕРґРµСЂР¶РёРјРѕРµ РёРЅРІРµРЅС‚Р°СЂСЏ, РЅР°РїСЂРёРјРµСЂ РєРѕРіРґР° РёРіСЂРѕРє РїСЂРѕС…РѕРґРёС‚ С‡РµСЂРµР· РїРѕСЂС‚Р°Р» РІ СЌРЅРґ
+	 @param inv */
 	public void copy(CustomInventory inv) {
-		
 		for (int i = 0; i < inv.getSizeInventory(); ++i) {
 			ItemStack stack = inv.getStackInSlot(i);
 			inventory.set(i, (stack.isEmpty() ? ItemStack.EMPTY : stack.copy()));
 		}
-	}	
+	}
 }

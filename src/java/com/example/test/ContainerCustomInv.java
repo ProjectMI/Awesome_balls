@@ -16,22 +16,20 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ContainerCustomInv  extends Container {
 
-	//Немного кода из ванилы
+    //РќРµРјРЅРѕРіРѕ РєРѕРґР° РёР· РІР°РЅРёР»С‹
     private static final EntityEquipmentSlot[] VALID_EQUIPMENT_SLOTS = new EntityEquipmentSlot[] {EntityEquipmentSlot.HEAD, EntityEquipmentSlot.CHEST, EntityEquipmentSlot.LEGS, EntityEquipmentSlot.FEET};
-
     private final EntityPlayer thePlayer;
-    
+
     /**
-     * Конструктор
-     * @param playerInventory Инвентарь игрока
-     * @param cInventory Кастомный инвентарь
-     * @param player Игрок
+     * РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
+     * @param playerInventory РРЅРІРµРЅС‚Р°СЂСЊ РёРіСЂРѕРєР°
+     * @param cInventory РљР°СЃС‚РѕРјРЅС‹Р№ РёРЅРІРµРЅС‚Р°СЂСЊ
+     * @param player РРіСЂРѕРє
      */
     public ContainerCustomInv(InventoryPlayer playerInventory, CustomInventory cInventory, EntityPlayer player) {
-        
+
         this.thePlayer = player;
-        
-        //Добавляем 8 кастомных слотов. Аргументы: игрок, инвентарь к которому они относятся, индекс слота, х координата, у координата
+        //Р”РѕР±Р°РІР»СЏРµРј 8 РєР°СЃС‚РѕРјРЅС‹С… СЃР»РѕС‚РѕРІ. РђСЂРіСѓРјРµРЅС‚С‹: РёРіСЂРѕРє, РёРЅРІРµРЅС‚Р°СЂСЊ Рє РєРѕС‚РѕСЂРѕРјСѓ РѕРЅРё РѕС‚РЅРѕСЃСЏС‚СЃСЏ, РёРЅРґРµРєСЃ СЃР»РѕС‚Р°, С… РєРѕРѕСЂРґРёРЅР°С‚Р°, Сѓ РєРѕРѕСЂРґРёРЅР°С‚Р°
         this.addSlotToContainer(new StandartSlot(player, cInventory, 0, 87, 8));
         this.addSlotToContainer(new StandartSlot(player, cInventory, 1, 87, 26));
         this.addSlotToContainer(new StandartSlot(player, cInventory, 2, 87, 44));
@@ -40,141 +38,112 @@ public class ContainerCustomInv  extends Container {
         this.addSlotToContainer(new StandartSlot(player, cInventory, 5, 109, 26));
         this.addSlotToContainer(new StandartSlot(player, cInventory, 6, 109, 44));
         this.addSlotToContainer(new StandartSlot(player, cInventory, 7, 109, 62));
-        
-        
-      
-        //Все что ниже можно взять из net.minecraft.inventory.ContainerPlayer;
-        //Добавляем ванильные слоты для брони
+
+        //Р’СЃРµ С‡С‚Рѕ РЅРёР¶Рµ РјРѕР¶РЅРѕ РІР·СЏС‚СЊ РёР· net.minecraft.inventory.ContainerPlayer;
+        //Р”РѕР±Р°РІР»СЏРµРј РІР°РЅРёР»СЊРЅС‹Рµ СЃР»РѕС‚С‹ РґР»СЏ Р±СЂРѕРЅРё
         for (int k = 0; k < 4; ++k){
-        	
             final EntityEquipmentSlot entityequipmentslot = VALID_EQUIPMENT_SLOTS[k];
             this.addSlotToContainer(new Slot(playerInventory, 36 + (3 - k), 8, 8 + k * 18){
 
                 public int getSlotStackLimit(){
-                	
                     return 1;
                 }
 
                 public boolean isItemValid(ItemStack stack){
-                	
                     return stack.getItem().isValidArmor(stack, entityequipmentslot, thePlayer);
                 }
-   
+
                 public boolean canTakeStack(EntityPlayer playerIn){
-                	
                     ItemStack itemstack = this.getStack();
                     return !itemstack.isEmpty() && !playerIn.isCreative() && EnchantmentHelper.hasBindingCurse(itemstack) ? false : super.canTakeStack(playerIn);
                 }
                 @Nullable
                 @SideOnly(Side.CLIENT)
                 public String getSlotTexture(){
-                	
                     return ItemArmor.EMPTY_SLOT_NAMES[entityequipmentslot.getIndex()];
                 }
             });
-             
         }
-        
-        //Добавляем 27 ванильных слотов инвентаря игрока
+
+        //Р”РѕР±Р°РІР»СЏРµРј 27 РІР°РЅРёР»СЊРЅС‹С… СЃР»РѕС‚РѕРІ РёРЅРІРµРЅС‚Р°СЂСЏ РёРіСЂРѕРєР°
         for (int l = 0; l < 3; ++l) {
-        	
             for (int j1 = 0; j1 < 9; ++j1) {
                 this.addSlotToContainer(new Slot(playerInventory, j1 + (l + 1) * 9, 8 + j1 * 18, 84 + l * 18));
             }
         }
 
-        //А так же добавляем 9 ванильных слотов в хотбар
+        //Рђ С‚Р°Рє Р¶Рµ РґРѕР±Р°РІР»СЏРµРј 9 РІР°РЅРёР»СЊРЅС‹С… СЃР»РѕС‚РѕРІ РІ С…РѕС‚Р±Р°СЂ
         for (int i1 = 0; i1 < 9; ++i1) {
-        	
             this.addSlotToContainer(new Slot(playerInventory, i1, 8 + i1 * 18, 142));
         }
-        
     }
-	
+
     /**
-     * Этот метод срабатывает когда игрок зажимает Шифт и кликает на слот с целью переместить предмет.
-     * Здесь мы должны задать откуда и куда будут перемещаться предметы из слота по которому кликнули
-     * @param index Индекс слота, на который кликнул игрок
+     * Р­С‚РѕС‚ РјРµС‚РѕРґ СЃСЂР°Р±Р°С‚С‹РІР°РµС‚ РєРѕРіРґР° РёРіСЂРѕРє Р·Р°Р¶РёРјР°РµС‚ РЁРёС„С‚ Рё РєР»РёРєР°РµС‚ РЅР° СЃР»РѕС‚ СЃ С†РµР»СЊСЋ РїРµСЂРµРјРµСЃС‚РёС‚СЊ РїСЂРµРґРјРµС‚.
+     * Р—РґРµСЃСЊ РјС‹ РґРѕР»Р¶РЅС‹ Р·Р°РґР°С‚СЊ РѕС‚РєСѓРґР° Рё РєСѓРґР° Р±СѓРґСѓС‚ РїРµСЂРµРјРµС‰Р°С‚СЊСЃСЏ РїСЂРµРґРјРµС‚С‹ РёР· СЃР»РѕС‚Р° РїРѕ РєРѕС‚РѕСЂРѕРјСѓ РєР»РёРєРЅСѓР»Рё
+     * @param index РРЅРґРµРєСЃ СЃР»РѕС‚Р°, РЅР° РєРѕС‚РѕСЂС‹Р№ РєР»РёРєРЅСѓР» РёРіСЂРѕРє
      */
     @Nullable
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
-    	
+
         ItemStack itemstack = ItemStack.EMPTY;
         Slot slot = (Slot)this.inventorySlots.get(index);
-        
-
-        //Если слот существует и он не пуст
+        //Р•СЃР»Рё СЃР»РѕС‚ СЃСѓС‰РµСЃС‚РІСѓРµС‚ Рё РѕРЅ РЅРµ РїСѓСЃС‚
         if (slot != null && slot.getHasStack()){
-        	
-        	//Достаем стак из слота
+            //Р”РѕСЃС‚Р°РµРј СЃС‚Р°Рє РёР· СЃР»РѕС‚Р°
             ItemStack itemstack1 = slot.getStack();
-            
             itemstack = itemstack1.copy();
-           
-            //Взаимодействие
-            //Если индекс слота меньше 12, т.е. игрок уликнул на кастомный слот или слот брони
+            //Р’Р·Р°РёРјРѕРґРµР№СЃС‚РІРёРµ
+            //Р•СЃР»Рё РёРЅРґРµРєСЃ СЃР»РѕС‚Р° РјРµРЅСЊС€Рµ 12, С‚.Рµ. РёРіСЂРѕРє СѓР»РёРєРЅСѓР» РЅР° РєР°СЃС‚РѕРјРЅС‹Р№ СЃР»РѕС‚ РёР»Рё СЃР»РѕС‚ Р±СЂРѕРЅРё
             if (index < 12){
-            	
-            	//Пытаемся переместить стак в ПЕРВЫЙ свободный слот в хотбаре или инвентаре, т.е. между 12 и 47 слотом
+                //РџС‹С‚Р°РµРјСЃСЏ РїРµСЂРµРјРµСЃС‚РёС‚СЊ СЃС‚Р°Рє РІ РџР•Р Р’Р«Р™ СЃРІРѕР±РѕРґРЅС‹Р№ СЃР»РѕС‚ РІ С…РѕС‚Р±Р°СЂРµ РёР»Рё РёРЅРІРµРЅС‚Р°СЂРµ, С‚.Рµ. РјРµР¶РґСѓ 12 Рё 47 СЃР»РѕС‚РѕРј
                 if (!this.mergeItemStack(itemstack1, 12, 48, true)) {
-                	
                     return ItemStack.EMPTY;
                 }
-
                 slot.onSlotChange(itemstack1, itemstack);
             }
-            
-            //Здесь наоборот. Если игрок кликнул на слот в инвентаре или хотбаре
+
+            //Р—РґРµСЃСЊ РЅР°РѕР±РѕСЂРѕС‚. Р•СЃР»Рё РёРіСЂРѕРє РєР»РёРєРЅСѓР» РЅР° СЃР»РѕС‚ РІ РёРЅРІРµРЅС‚Р°СЂРµ РёР»Рё С…РѕС‚Р±Р°СЂРµ
             else if (index > 11){
-            	
-            	//Если это броня, то ее надо переместить в первый подходящий для нее слот между 8 и 11 индексом
-            	if(itemstack1.getItem() instanceof ItemArmor){
-            		
-            		//тут один момент. Почему передаем 12 а не 11? Потому что не включительно. Т.е. между 8 и 12 слотом не включительно
-            		if (!this.mergeItemStack(itemstack1, 8, 12, false)){
+                //Р•СЃР»Рё СЌС‚Рѕ Р±СЂРѕРЅСЏ, С‚Рѕ РµРµ РЅР°РґРѕ РїРµСЂРµРјРµСЃС‚РёС‚СЊ РІ РїРµСЂРІС‹Р№ РїРѕРґС…РѕРґСЏС‰РёР№ РґР»СЏ РЅРµРµ СЃР»РѕС‚ РјРµР¶РґСѓ 8 Рё 11 РёРЅРґРµРєСЃРѕРј
+                if(itemstack1.getItem() instanceof ItemArmor){
+                    //С‚СѓС‚ РѕРґРёРЅ РјРѕРјРµРЅС‚. РџРѕС‡РµРјСѓ РїРµСЂРµРґР°РµРј 12 Р° РЅРµ 11? РџРѕС‚РѕРјСѓ С‡С‚Рѕ РЅРµ РІРєР»СЋС‡РёС‚РµР»СЊРЅРѕ. Рў.Рµ. РјРµР¶РґСѓ 8 Рё 12 СЃР»РѕС‚РѕРј РЅРµ РІРєР»СЋС‡РёС‚РµР»СЊРЅРѕ
+                    if (!this.mergeItemStack(itemstack1, 8, 12, false)){
                         return ItemStack.EMPTY;
                     }
-            		
-            	}else 
-            		//Если это не броня и мы в инвентаре но не в хотбаре(т.е. между 12 и 38 слотом), то помещаем предмет в хотбар, т.е. между 39 и 47 слотом
-            		if (index >= 12 && index < 39){
-            			
-	                    if (!this.mergeItemStack(itemstack1, 39, 48, false)){
-	                        return ItemStack.EMPTY;
-	                    }
-                }else 
-                	//Если мы в хотбаре(т.е. между 39 и 47 слотом) то пытаемся переместить предмет в инвентарь(т.е. между в ПЕРВЫМ свободным слотом в инвентаре, т.е. между 12 и 38 слотом)
-                	if (index >= 39 && index < 48 && !this.mergeItemStack(itemstack1, 12, 39, false)){
-                		return ItemStack.EMPTY;
-                	}
-            }        
-           
-
-            //Остальные простые проверки
+                }else
+                    //Р•СЃР»Рё СЌС‚Рѕ РЅРµ Р±СЂРѕРЅСЏ Рё РјС‹ РІ РёРЅРІРµРЅС‚Р°СЂРµ РЅРѕ РЅРµ РІ С…РѕС‚Р±Р°СЂРµ(С‚.Рµ. РјРµР¶РґСѓ 12 Рё 38 СЃР»РѕС‚РѕРј), С‚Рѕ РїРѕРјРµС‰Р°РµРј РїСЂРµРґРјРµС‚ РІ С…РѕС‚Р±Р°СЂ, С‚.Рµ. РјРµР¶РґСѓ 39 Рё 47 СЃР»РѕС‚РѕРј
+                    if (index >= 12 && index < 39){
+                        if (!this.mergeItemStack(itemstack1, 39, 48, false)){
+                            return ItemStack.EMPTY;
+                        }
+                    }else
+                        //Р•СЃР»Рё РјС‹ РІ С…РѕС‚Р±Р°СЂРµ(С‚.Рµ. РјРµР¶РґСѓ 39 Рё 47 СЃР»РѕС‚РѕРј) С‚Рѕ РїС‹С‚Р°РµРјСЃСЏ РїРµСЂРµРјРµСЃС‚РёС‚СЊ РїСЂРµРґРјРµС‚ РІ РёРЅРІРµРЅС‚Р°СЂСЊ(С‚.Рµ. РјРµР¶РґСѓ РІ РџР•Р Р’Р«Рњ СЃРІРѕР±РѕРґРЅС‹Рј СЃР»РѕС‚РѕРј РІ РёРЅРІРµРЅС‚Р°СЂРµ, С‚.Рµ. РјРµР¶РґСѓ 12 Рё 38 СЃР»РѕС‚РѕРј)
+                        if (index >= 39 && index < 48 && !this.mergeItemStack(itemstack1, 12, 39, false)){
+                            return ItemStack.EMPTY;
+                        }
+            }
+            //РћСЃС‚Р°Р»СЊРЅС‹Рµ РїСЂРѕСЃС‚С‹Рµ РїСЂРѕРІРµСЂРєРё
             if (itemstack1.getCount() == 0){
                 slot.putStack(ItemStack.EMPTY);
             }
             else{
                 slot.onSlotChanged();
             }
-
             if (itemstack1.getCount() == itemstack.getCount()){
                 return ItemStack.EMPTY;
             }
-
             slot.onTake(playerIn, itemstack1);
         }
-
         return itemstack;
     }
-	
-	/**
-	 * Может ли игрок взаимодействовать с инвентарем?
-	 */
-	@Override
-	public boolean canInteractWith(EntityPlayer playerIn) {
-		
-		return true;
-	}
+
+    /**
+     * РњРѕР¶РµС‚ Р»Рё РёРіСЂРѕРє РІР·Р°РёРјРѕРґРµР№СЃС‚РІРѕРІР°С‚СЊ СЃ РёРЅРІРµРЅС‚Р°СЂРµРј?
+     */
+    @Override
+    public boolean canInteractWith(EntityPlayer playerIn) {
+        return true;
+    }
 
 }
