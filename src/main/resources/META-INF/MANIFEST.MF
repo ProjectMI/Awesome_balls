@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Specification-Title: baubles
+Specification-Vendor: baublessareus
+Specification-Version: 1
+Implementation-Title: baubles
+Implementation-Version: 1.10.0.1-1.18.1
+Implementation-Vendor: baublessareus
+Implementation-Timestamp: 2021-12-22T18:40:30+0000
+

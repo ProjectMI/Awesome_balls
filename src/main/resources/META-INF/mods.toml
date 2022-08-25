@@ -1,0 +1,12 @@
+modLoader="javafml" #mandatory
+loaderVersion="39.0.8" #mandatory (37 is current forge version)
+license="ANS3.0NC" #mandatory
+issueTrackerURL="https://github.com/lazyMods/Baubles/issues" #optional
+[[mods]] #mandatory
+modId="baubles" #mandatory
+version="1.10.0.1-1.18.1" #mandatory
+displayName="Baubles" #mandatory
+logoFile="BLogo.png" #optional
+credits="Azanor" #optional
+authors="lazynessmind" #optional
+description='''Adding a touch of bling to Minecraft'''
