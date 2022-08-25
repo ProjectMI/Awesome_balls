@@ -10,29 +10,26 @@ import net.minecraftforge.fml.common.gameevent.InputEvent.KeyInputEvent;
 
 public class KeyHandler {
 
-	/*	Создаем бинд. Указываем название - Open Inventory
-	    Кнопка поумолчанию, если игрок ничего не менял будет H
-	 	Название категории - Custom Inventory Keys
-	 
-	*/
+	/*РЎРѕР·РґР°РµРј Р±РёРЅРґ. РќР°Р·РІР°РЅРёРµ - Open Inventory
+       РљРЅРѕРїРєР° РїРѕСѓРјРѕР»С‡Р°РЅРёСЋ, РµСЃР»Рё РёРіСЂРѕРє РЅРёС‡РµРіРѕ РЅРµ РјРµРЅСЏР» Р±СѓРґРµС‚ H
+       РќР°Р·РІР°РЅРёРµ РєР°С‚РµРіРѕСЂРёРё - Custom Inventory Keys*/
 	public static KeyBinding openKey = new KeyBinding("Open Inventory", Keyboard.KEY_H, "Custom Inventory Keys");
 
-	//Регистрируем событие и бинд
-	public static void register() {	
-		
+	//Р РµРіРёСЃС‚СЂРёСЂСѓРµРј СЃРѕР±С‹С‚РёРµ Рё Р±РёРЅРґ
+	public static void register() {
 		MinecraftForge.EVENT_BUS.register(new KeyHandler());
-		ClientRegistry.registerKeyBinding(openKey);	
-	}	
+		ClientRegistry.registerKeyBinding(openKey);
+	}
 
-	//Событие, которое срабатывает при нажатии игроком кнопки на клавиатуре
-	 @SubscribeEvent
-	 public void onKey(KeyInputEvent event) {
-		 
-		 //если нажали на нашу кнопку Н то отправляем пакет на сервер с просьбой открыть инвентарь
-	     if (openKey.isPressed()) {
-	    	  NetworkHandler.network.sendToServer(new OpenInventoryMessage());
-	     }
-	 }
-	 
+	//РЎРѕР±С‹С‚РёРµ, РєРѕС‚РѕСЂРѕРµ СЃСЂР°Р±Р°С‚С‹РІР°РµС‚ РїСЂРё РЅР°Р¶Р°С‚РёРё РёРіСЂРѕРєРѕРј РєРЅРѕРїРєРё РЅР° РєР»Р°РІРёР°С‚СѓСЂРµ
+	@SubscribeEvent
+	public void onKey(KeyInputEvent event) {
+		//РµСЃР»Рё РЅР°Р¶Р°Р»Рё РЅР° РЅР°С€Сѓ РєРЅРѕРїРєСѓ Рќ С‚Рѕ РѕС‚РїСЂР°РІР»СЏРµРј РїР°РєРµС‚ РЅР° СЃРµСЂРІРµСЂ СЃ РїСЂРѕСЃСЊР±РѕР№ РѕС‚РєСЂС‹С‚СЊ РёРЅРІРµРЅС‚Р°СЂСЊ
+		if (openKey.isPressed()) {
+			NetworkHandler.network.sendToServer(new OpenInventoryMessage());
+		}
+	}
+
 }
+
 

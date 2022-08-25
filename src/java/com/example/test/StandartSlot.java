@@ -3,66 +3,50 @@ package com.example.test;
 import javax.annotation.Nullable;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
-import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class StandartSlot extends Slot {
-	
-	//Это по сути копитя обычного ванильного слота
-	
+
+    //Р­С‚Рѕ РїРѕ СЃСѓС‚Рё РєРѕРїРёС‚СЏ РѕР±С‹С‡РЅРѕРіРѕ РІР°РЅРёР»СЊРЅРѕРіРѕ СЃР»РѕС‚Р°
+
     private final EntityPlayer thePlayer;
     private int removeCount;
-    
+
     public StandartSlot(EntityPlayer player, IInventory inventoryIn, int slotIndex, int xPosition, int yPosition){
-    	
         super(inventoryIn, slotIndex, xPosition, yPosition);
         this.thePlayer = player;
     }
 
-    /*	Может ли даный стак быть положен в этот слот. Здесь могут быть проверки, например если вы хотите
-    	чтоб в слот нельзя было положить яблоко, проверяете равен ли предмет в стаке яблоку, если да, то
-    	возвращаем false
-    
-    */
+    /* РњРѕР¶РµС‚ Р»Рё РґР°РЅС‹Р№ СЃС‚Р°Рє Р±С‹С‚СЊ РїРѕР»РѕР¶РµРЅ РІ СЌС‚РѕС‚ СЃР»РѕС‚. Р—РґРµСЃСЊ РјРѕРіСѓС‚ Р±С‹С‚СЊ РїСЂРѕРІРµСЂРєРё, РЅР°РїСЂРёРјРµСЂ РµСЃР»Рё РІС‹ С…РѕС‚РёС‚Рµ
+        С‡С‚РѕР± РІ СЃР»РѕС‚ РЅРµР»СЊР·СЏ Р±С‹Р»Рѕ РїРѕР»РѕР¶РёС‚СЊ СЏР±Р»РѕРєРѕ, РїСЂРѕРІРµСЂСЏРµС‚Рµ СЂР°РІРµРЅ Р»Рё РїСЂРµРґРјРµС‚ РІ СЃС‚Р°РєРµ СЏР±Р»РѕРєСѓ, РµСЃР»Рё РґР°, С‚Рѕ
+        РІРѕР·РІСЂР°С‰Р°РµРј false */
     public boolean isItemValid(@Nullable ItemStack stack){
-    	
-    	//если индекс слота 0 и входящий стак - стак с яблоками, то не разрешить класть в слот.
-    	if(this.getSlotIndex() == 0 && stack.getItem().equals(Items.APPLE)) return false;
         return true;
     }
 
     public ItemStack decrStackSize(int amount){
-    	
         if (this.getHasStack()){
             this.removeCount += Math.min(amount, this.getStack().getCount());
         }
-
         return super.decrStackSize(amount);
     }
 
-    //Что происходит, если забрать предмет из слота
+    //Р§С‚Рѕ РїСЂРѕРёСЃС…РѕРґРёС‚, РµСЃР»Рё Р·Р°Р±СЂР°С‚СЊ РїСЂРµРґРјРµС‚ РёР· СЃР»РѕС‚Р°
     public ItemStack onTake(EntityPlayer player, ItemStack stack){
-    	
         this.onCrafting(stack);
         super.onTake(player, stack);
         return stack;
     }
 
     protected void onCrafting(ItemStack stack, int amount){
-    	
         this.removeCount += amount;
         this.onCrafting(stack);
     }
 
     protected void onCrafting(ItemStack stack){
-    	
         stack.onCrafting(this.thePlayer.world, this.thePlayer, this.removeCount);
-        this.removeCount = 0;    
+        this.removeCount = 0;
     }
 }

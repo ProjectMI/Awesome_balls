@@ -7,33 +7,40 @@ import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 
+import net.minecraft.nbt.NBTBase;
+import net.minecraft.util.EnumFacing;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.CapabilityInject;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.common.capabilities.ICapabilitySerializable;
+
 public class CAPCustomInventoryProvider implements ICapabilitySerializable<NBTBase> {
-	
-	 //Инициализация КАПы с помощью аннотации
+
+    //РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РљРђРџС‹ СЃ РїРѕРјРѕС‰СЊСЋ Р°РЅРЅРѕС‚Р°С†РёРё
     @CapabilityInject(ICAPCustomInventory.class)
     public static final Capability<ICAPCustomInventory> INVENTORY_CAP = null;
 
     private ICAPCustomInventory instance = INVENTORY_CAP.getDefaultInstance();
 
-    //Метод что осуществляет проверку на наличие КАПы
+    //РњРµС‚РѕРґ С‡С‚Рѕ РѕСЃСѓС‰РµСЃС‚РІР»СЏРµС‚ РїСЂРѕРІРµСЂРєСѓ РЅР° РЅР°Р»РёС‡РёРµ РљРђРџС‹
     @Override
     public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-         return capability == INVENTORY_CAP;
+        return capability == INVENTORY_CAP;
     }
 
-    //Метод что осуществляет доступ к КАПе
+    //РњРµС‚РѕРґ С‡С‚Рѕ РѕСЃСѓС‰РµСЃС‚РІР»СЏРµС‚ РґРѕСЃС‚СѓРї Рє РљРђРџРµ
     @Override
     public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-         return capability == INVENTORY_CAP ? INVENTORY_CAP.<T> cast(this.instance) : null;
+        return capability == INVENTORY_CAP ? INVENTORY_CAP.<T> cast(this.instance) : null;
     }
 
-    //Метод инициации сохранения информации о инвентаре в НБТ
+    //РњРµС‚РѕРґ РёРЅРёС†РёР°С†РёРё СЃРѕС…СЂР°РЅРµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёРЅРІРµРЅС‚Р°СЂРµ РІ РќР‘Рў
     @Override
     public NBTBase serializeNBT() {
-         return INVENTORY_CAP.getStorage().writeNBT(INVENTORY_CAP, this.instance, null);
+        return INVENTORY_CAP.getStorage().writeNBT(INVENTORY_CAP, this.instance, null);
     }
 
-    //Метод инициации чтения информации о инвентаре из НБТ
+    //РњРµС‚РѕРґ РёРЅРёС†РёР°С†РёРё С‡С‚РµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РёРЅРІРµРЅС‚Р°СЂРµ РёР· РќР‘Рў
     @Override
     public void deserializeNBT(NBTBase nbt) {
         INVENTORY_CAP.getStorage().readNBT(INVENTORY_CAP, this.instance, null, nbt);

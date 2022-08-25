@@ -8,42 +8,35 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
 
 public class GUICustomInv extends GuiContainer{
-	
+
 	private float oldMouseX;
 	private float oldMouseY;
-	
-	//Путь к текстуре - MOD_ID + :textures/gui/inventory_gui.png. У меня это src/main/resources/assets/MOD_ID/textures/gui/inventory_gui.png
-	private static final ResourceLocation INVENTORY_GUI_TEXTURE = new ResourceLocation(TestMod.MOD_ID + ":textures/gui/inventory_gui.png");
 
+	/*РџСѓС‚СЊ Рє С‚РµРєСЃС‚СѓСЂРµ - MOD_ID + :textures/gui/inventory_gui.png.
+    private static final ResourceLocation INVENTORY_GUI_TEXTURE = new ResourceLocation(TestMod.MOD_ID + ":textures/gui/inventory_gui.png");
+    MOD_ID - РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ РјРѕРґР°. РўРѕ, С‡С‚Рѕ СѓРєР°Р·Р°РЅРѕ РІ Р°РЅРЅРѕС‚Р°С†РёРё @Mod(modid="MOD_ID"). РЈ РјРµРЅСЏ СЌС‚Рѕ Р·РЅР°С‡РµРЅРёРµ С…СЂР°РЅРёС‚СЃСЏ РІ РїРµСЂРµРјРµРЅРЅРѕР№ РІ РіР»Р°РІРЅРѕРј РєР»Р°СЃСЃРµ TestMod,
+    РЅР°РїСЂРёРјРµСЂ: public static final String MOD_ID = "testmod";. Р РёСЃРїРѕР»СЊР·СѓСЋ РµРіРѕ: TestMod.MOD_ID*/
 	public GUICustomInv(EntityPlayer player, InventoryPlayer inventoryPlayer, CustomInventory cInventory) {
-		
 		super(new ContainerCustomInv(inventoryPlayer, cInventory, player));
-		
 	}
 
-	/**
-	 * Рисуем все компоненты на экране
-	 */
+	//Р РёСЃСѓРµРј РІСЃРµ РєРѕРјРїРѕРЅРµРЅС‚С‹ РЅР° СЌРєСЂР°РЅРµ
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-		
-	    super.drawScreen(mouseX, mouseY, partialTicks);
-	    this.oldMouseX = (float)mouseX;
-	    this.oldMouseY = (float)mouseY;
+		super.drawScreen(mouseX, mouseY, partialTicks);
+		this.oldMouseX = (float)mouseX;
+		this.oldMouseY = (float)mouseY;
 	}
 
-	/**
-	 * Рисуем задний фон(т.е. все, что позади предметов)
-	 */
+	//Р РёСЃСѓРµРј Р·Р°РґРЅРёР№ С„РѕРЅ(С‚.Рµ. РІСЃРµ, С‡С‚Рѕ РїРѕР·Р°РґРё РїСЂРµРґРјРµС‚РѕРІ)
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-		
-		//Биндим текстуру INVENTORY_GUI_TEXTURE, а так же добавляем модельку игрока как в ванильном инвентаре
+		//Р‘РёРЅРґРёРј С‚РµРєСЃС‚СѓСЂСѓ INVENTORY_GUI_TEXTURE, Р° С‚Р°Рє Р¶Рµ РґРѕР±Р°РІР»СЏРµРј РјРѕРґРµР»СЊРєСѓ РёРіСЂРѕРєР° РєР°Рє РІ РІР°РЅРёР»СЊРЅРѕРј РёРЅРІРµРЅС‚Р°СЂРµ
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-	    this.mc.getTextureManager().bindTexture(INVENTORY_GUI_TEXTURE);
-	    int i = this.guiLeft;
-	    int j = this.guiTop;
-	    this.drawTexturedModalRect(i, j, 0, 0, this.xSize, this.ySize);
-	    GuiInventory.drawEntityOnScreen(i + 55, j + 75, 30, (float)(i + 51) - this.oldMouseX, (float)(j + 75 - 50) - this.oldMouseY, this.mc.player);	   		
+		this.mc.getTextureManager().bindTexture(INVENTORY_GUI_TEXTURE);
+		int i = this.guiLeft;
+		int j = this.guiTop;
+		this.drawTexturedModalRect(i, j, 0, 0, this.xSize, this.ySize);
+		GuiInventory.drawEntityOnScreen(i + 55, j + 75, 30, (float)(i + 51) - this.oldMouseX, (float)(j + 75 - 50) - this.oldMouseY, this.mc.player);
 	}
-	
+
 }

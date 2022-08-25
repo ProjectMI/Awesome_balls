@@ -5,19 +5,18 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
 
-public class NetworkHandler {
-	
+ppublic class NetworkHandler {
+
 	public static SimpleNetworkWrapper network;
 
 	public static void init() {
-		
-		//инициализируем класс, что занимается передачей и обработкой пакетов между клиентом и сервером. TestMod.MOD_ID - айди мода.
+
+		//РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РєР»Р°СЃСЃР°, С‡С‚Рѕ Р·Р°РЅРёРјР°РµС‚СЃСЏ РїРµСЂРµРґР°С‡РµР№ Рё РѕР±СЂР°Р±РѕС‚РєРѕР№ РїР°РєРµС‚РѕРІ РјРµР¶РґСѓ РєР»РёРµРЅС‚РѕРј Рё СЃРµСЂРІРµСЂРѕРј. TestMod.MOD_ID - Р°Р№РґРё РјРѕРґР°.
 		network = NetworkRegistry.INSTANCE.newSimpleChannel(TestMod.MOD_ID);
-		
-		/*	Регистрируем пакет. Параметры: класс обработчика(статический класс, который лежит внутри OpenInventoryMessage), 
-		  	класс самого сообщения, идентификатор, сторона, на которой будет обрабатываться пакет.
-		  	Так как мы посылаем его на сервер, для открытия ГУИ менно оттуда, то указываем Side.SERVER
-		*/
+        /*    Р РµРіРёСЃС‚СЂРёСЂР°С†РёСЏ РїР°РєРµС‚Р°. РџР°СЂР°РјРµС‚СЂС‹: РєР»Р°СЃСЃ РѕР±СЂР°Р±РѕС‚С‡РёРєР°(СЃС‚Р°С‚РёС‡РµСЃРєРёР№ РєР»Р°СЃСЃ, РєРѕС‚РѕСЂС‹Р№ Р»РµР¶РёС‚ РІРЅСѓС‚СЂРё OpenInventoryMessage),
+              РєР»Р°СЃСЃ СЃР°РјРѕРіРѕ СЃРѕРѕР±С‰РµРЅРёСЏ, РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ, СЃС‚РѕСЂРѕРЅР°, РЅР° РєРѕС‚РѕСЂРѕР№ Р±СѓРґРµС‚ РѕР±СЂР°Р±Р°С‚С‹РІР°С‚СЊСЃСЏ РїР°РєРµС‚.
+              РўР°Рє РѕРЅ РїРѕСЃС‹Р»Р°РµС‚СЃСЏ РЅР° СЃРµСЂРІРµСЂ, РґР»СЏ РѕС‚РєСЂС‹С‚РёСЏ GUI РјРµРЅРЅРѕ РѕС‚С‚СѓРґР°, С‚Рѕ СѓРєР°Р·С‹РІР°РµРј Side.SERVER
+        */
 		network.registerMessage(OpenInventoryMessage.Handler.class, OpenInventoryMessage.class, 0, Side.SERVER);
-	}	
+	}
 }

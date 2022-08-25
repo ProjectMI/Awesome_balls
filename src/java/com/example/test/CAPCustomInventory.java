@@ -2,27 +2,22 @@ package com.example.test;
 
 
 public class CAPCustomInventory implements ICAPCustomInventory {
-	
-	//Реализуем методы, что определены в интерфейсе ICAPCustomInventory
 
-	//Создаем обьект нашего инвентаря. Он будет храниться в этой КАП'е
+	//Р РµР°Р»РёР·СѓРµРј РјРµС‚РѕРґС‹, С‡С‚Рѕ РѕРїСЂРµРґРµР»РµРЅС‹ РІ РёРЅС‚РµСЂС„РµР№СЃРµ ICAPCustomInventory
+
+	//РЎРѕР·РґР°РµРј РѕР±СЊРµРєС‚ РЅР°С€РµРіРѕ РёРЅРІРµРЅС‚Р°СЂСЏ. РћРЅ Р±СѓРґРµС‚ С…СЂР°РЅРёС‚СЊСЃСЏ РІ СЌС‚РѕР№ РљРђРџ'Рµ
 	public final CustomInventory inventory = new CustomInventory();
-		
-	/**
-	 * Метод, который возвращает обьект инвентаря inventory
-	 */
+
+	//РњРµС‚РѕРґ, РєРѕС‚РѕСЂС‹Р№ РІРѕР·РІСЂР°С‰Р°РµС‚ РѕР±СЊРµРєС‚ РёРЅРІРµРЅС‚Р°СЂСЏ inventory
 	public CustomInventory getInventory(){
-		
 		return this.inventory;
 	}
-	
-	/**
-	 * Метод, для копировании информации из другого инвентаря, например при клонировании
-	 */
+
+	//РњРµС‚РѕРґ, РґР»СЏ РєРѕРїРёСЂРѕРІР°РЅРёРё РёРЅС„РѕСЂРјР°С†РёРё РёР· РґСЂСѓРіРѕРіРѕ РёРЅРІРµРЅС‚Р°СЂСЏ, РЅР°РїСЂРёРјРµСЂ РїСЂРё РєР»РѕРЅРёСЂРѕРІР°РЅРёРё
 	@Override
 	public void copyInventory(ICAPCustomInventory inventory) {
-		
 		this.inventory.copy(inventory.getInventory());
 	}
 
 }
+

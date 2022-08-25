@@ -8,23 +8,21 @@ import net.minecraftforge.common.capabilities.Capability.IStorage;
 
 public class CAPCustomInventoryStorage implements IStorage<ICAPCustomInventory> {
 
-	//Сохранение информации (т.е. предметов, что лежать в инвентаре) с помощью writeToNBT
-	
+	//РЎРѕС…СЂР°РЅРµРЅРёРµ РёРЅС„РѕСЂРјР°С†РёРё (С‚.Рµ. РїСЂРµРґРјРµС‚РѕРІ, С‡С‚Рѕ Р»РµР¶Р°С‚СЊ РІ РёРЅРІРµРЅС‚Р°СЂРµ) СЃ РїРѕРјРѕС‰СЊСЋ writeToNBT
+
 	@Override
 	public NBTBase writeNBT(Capability<ICAPCustomInventory> capability, ICAPCustomInventory instance, EnumFacing side) {
-		
 		NBTTagCompound properties = new NBTTagCompound();
-		//Вызываем метод writeToNBT из инвентаря и записываем инфу о инвентаре с его помощью в тэг
+		//Р’С‹Р·С‹РІР°РµРј РјРµС‚РѕРґ writeToNBT РёР· РёРЅРІРµРЅС‚Р°СЂСЏ Рё Р·Р°РїРёСЃС‹РІР°РµРј РёРЅС„Сѓ Рѕ РёРЅРІРµРЅС‚Р°СЂРµ СЃ РµРіРѕ РїРѕРјРѕС‰СЊСЋ РІ С‚СЌРі
 		instance.getInventory().writeToNBT(properties);
 		return properties;
 	}
 
-	//Чтение информации (т.е. предметов, что лежать в инвентаре) и добавление их в инвентарь с помощью readFromNBT
+	//Р§С‚РµРЅРёРµ РёРЅС„РѕСЂРјР°С†РёРё (С‚.Рµ. РїСЂРµРґРјРµС‚РѕРІ, С‡С‚Рѕ Р»РµР¶Р°С‚СЊ РІ РёРЅРІРµРЅС‚Р°СЂРµ) Рё РґРѕР±Р°РІР»РµРЅРёРµ РёС… РІ РёРЅРІРµРЅС‚Р°СЂСЊ СЃ РїРѕРјРѕС‰СЊСЋ readFromNBT
 	@Override
 	public void readNBT(Capability<ICAPCustomInventory> capability, ICAPCustomInventory instance, EnumFacing side, NBTBase nbt) {
-		
 		NBTTagCompound properties = (NBTTagCompound)nbt;
-		//Вызываем метод readFromNBT из инвентаря и кладем в него(инв.) стаки которые хранились в тэге
+		//Р’С‹Р·С‹РІР°РµРј РјРµС‚РѕРґ readFromNBT РёР· РёРЅРІРµРЅС‚Р°СЂСЏ Рё РєР»Р°РґРµРј РІ РЅРµРіРѕ(РёРЅРІ.) СЃС‚Р°РєРё РєРѕС‚РѕСЂС‹Рµ С…СЂР°РЅРёР»РёСЃСЊ РІ С‚СЌРіРµ
 		instance.getInventory().readFromNBT(properties);
 	}
 

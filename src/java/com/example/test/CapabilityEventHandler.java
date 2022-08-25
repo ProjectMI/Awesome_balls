@@ -25,7 +25,7 @@ public class CapabilityEventHandler {
 	
 	public static final ResourceLocation INVENTORY_CAP = new ResourceLocation(TestMod.MOD_ID, "inventory");
 	
-	//����� �����! ��������� ���� ������ ��� ��� ������ ��������
+	//ОЧЕНЬ ВАЖНО! Добавляет капу игроку при его первом создании
 	@SubscribeEvent
 	public void attachCapability(AttachCapabilitiesEvent.Entity event) {
 		
@@ -35,7 +35,7 @@ public class CapabilityEventHandler {
 		
 	}
 	
-	//����������� ���������, ���� �� �����-�� �������� ��������� ������������ ������. ����� ���� ��������
+	//Копирование инвентаря, если по каким-то причинам произошло клонирование игрока. Иначе вещи пропадут
 	@SubscribeEvent
     public void onPlayerClone(PlayerEvent.Clone event) {
 		
@@ -47,7 +47,7 @@ public class CapabilityEventHandler {
 
     }
 	
-	//���� ����� ����� �� ������ �� �������. ����� �������� ���� �������. �����������
+	//Если игрок умрет то ничего не выпадет. Нужно выбросит вещи вручную. Выбрасываем
 	@SubscribeEvent
     public void onPlayerDeath(LivingDeathEvent event) {
 		

@@ -8,39 +8,37 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 public class OpenInventoryMessage implements IMessage {
-    
-	//Наша задача просто открыть ГУИ с серверной стороны, ничего больше передавать не нужно.
-		
-	//ОБЯЗАТЕЛЬНЫЙ конструктор без параметров
+
+    //РўСѓС‚ Р·Р°РґР°С‡Р° РїСЂРѕСЃС‚Рѕ РѕС‚РєСЂС‹С‚СЊ GUI СЃ СЃРµСЂРІРµСЂРЅРѕР№ СЃС‚РѕСЂРѕРЅС‹, РЅРёС‡РµРіРѕ Р±РѕР»СЊС€Рµ РїРµСЂРµРґР°РІР°С‚СЊ РЅРµ РЅСѓР¶РЅРѕ.
+
+    //РћР‘РЇР—РђРўР•Р›Р¬РќР«Р™ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ Р±РµР· РїР°СЂР°РјРµС‚СЂРѕРІ
     public OpenInventoryMessage() { }
 
     @Override
     public void fromBytes(ByteBuf buf) {
-      
+
     }
 
     @Override
     public void toBytes(ByteBuf buf) {
-       
+
     }
 
-  
-    //Класс-обработчик пакета. Реализует метод onMessage, который срабатывает когда пакет приходит на сервер(в данном случае)
-    
+
+    //РљР»Р°СЃСЃ-РѕР±СЂР°Р±РѕС‚С‡РёРє РїР°РєРµС‚Р°. Р РµР°Р»РёР·СѓРµС‚ РјРµС‚РѕРґ onMessage, РєРѕС‚РѕСЂС‹Р№ СЃСЂР°Р±Р°С‚С‹РІР°РµС‚ РєРѕРіРґР° РїР°РєРµС‚ РїСЂРёС…РѕРґРёС‚ РЅР° СЃРµСЂРІРµСЂ(РІ РґР°РЅРЅРѕРј СЃР»СѓС‡Р°Рµ)
     public static class Handler implements IMessageHandler<OpenInventoryMessage, IMessage> {
-        
-    	//Пишем тут то, что должно произойти когда пакет дойдет до сервера
+
+        //Р—РґРµСЃСЊ РЅСѓР¶РЅРѕ РЅР°РїРёСЃР°С‚СЊ С‚Рѕ, С‡С‚Рѕ РґРѕР»Р¶РЅРѕ РїСЂРѕРёР·РѕР№С‚Рё РєРѕРіРґР° РїР°РєРµС‚ РґРѕР№РґРµС‚ РґРѕ СЃРµСЂРІРµСЂР°
         @Override
         public IMessage onMessage(OpenInventoryMessage message, MessageContext ctx) {
-        	
-        	/*	В данном случае достаем игрока, который отправил пакет и открываем ГУИ.
-        		TestMod.INSTANCE - инстанс главного класса, т.е. его обьект.
-        		Допустим имя главного класса TestMod, а modid = "testmod", тогда в главном классе пишем: @Mod.Instance("testmod") public static TestMod INSTANCE;
-         		GuiHandler.INVENTORY_GUI_ID - идентификатор нашего ГУИ. Я присвоил значение 0.
-        	*/
-        	EntityPlayerMP player = ctx.getServerHandler().playerEntity;
-        	player.openGui(TestMod.INSTANCE, GuiHandler.INVENTORY_GUI_ID, player.getEntityWorld(), (int)player.posX, (int)player.posY, (int)player.posZ);			
-            return null; 
+            /*Р’ РґР°РЅРЅРѕРј СЃР»СѓС‡Р°Рµ РґРѕСЃС‚Р°РµРј РёРіСЂРѕРєР°, РєРѕС‚РѕСЂС‹Р№ РѕС‚РїСЂР°РІРёР» РїР°РєРµС‚ Рё РѕС‚РєСЂС‹РІР°РµРј Р“РЈР.
+               TestMod.INSTANCE - РёРЅСЃС‚Р°РЅСЃ РіР»Р°РІРЅРѕРіРѕ РєР»Р°СЃСЃР°, С‚.Рµ. РµРіРѕ РѕР±СЊРµРєС‚.
+               Р”РѕРїСѓСЃС‚РёРј РёРјСЏ РіР»Р°РІРЅРѕРіРѕ РєР»Р°СЃСЃР° TestMod, Р° modid = "testmod", С‚РѕРіРґР° РІ РіР»Р°РІРЅРѕРј РєР»Р°СЃСЃРµ РїРёС€РµС‚СЃСЏ: @Mod.Instance("testmod") public static TestMod INSTANCE;
+               GuiHandler.INVENTORY_GUI_ID - РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ Р“РЈР. РЇ РїСЂРёСЃРІРѕРёР» Р·РЅР°С‡РµРЅРёРµ 0.
+            */
+            EntityPlayerMP player = ctx.getServerHandler().playerEntity;
+            player.openGui(TestMod.INSTANCE, GuiHandler.INVENTORY_GUI_ID, player.getEntityWorld(), (int)player.posX, (int)player.posY, (int)player.posZ);
+            return null;
         }
     }
 }

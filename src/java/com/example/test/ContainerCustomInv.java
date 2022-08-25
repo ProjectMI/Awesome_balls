@@ -21,7 +21,6 @@ public class ContainerCustomInv  extends Container {
     private final EntityPlayer thePlayer;
 
     /**
-     * Конструктор
      * @param playerInventory Инвентарь игрока
      * @param cInventory Кастомный инвентарь
      * @param player Игрок
@@ -80,7 +79,7 @@ public class ContainerCustomInv  extends Container {
 
     /**
      * Этот метод срабатывает когда игрок зажимает Шифт и кликает на слот с целью переместить предмет.
-     * Здесь мы должны задать откуда и куда будут перемещаться предметы из слота по которому кликнули
+     * Здесь нужно задать откуда и куда будут перемещаться предметы из слота по которому кликнули
      * @param index Индекс слота, на который кликнул игрок
      */
     @Nullable
@@ -96,7 +95,7 @@ public class ContainerCustomInv  extends Container {
             //Взаимодействие
             //Если индекс слота меньше 12, т.е. игрок уликнул на кастомный слот или слот брони
             if (index < 12){
-                //Пытаемся переместить стак в ПЕРВЫЙ свободный слот в хотбаре или инвентаре, т.е. между 12 и 47 слотом
+                //Пытаемся переместить стак в первый свободный слот в хотбаре или инвентаре, т.е. между 12 и 47 слотом
                 if (!this.mergeItemStack(itemstack1, 12, 48, true)) {
                     return ItemStack.EMPTY;
                 }
@@ -138,9 +137,7 @@ public class ContainerCustomInv  extends Container {
         return itemstack;
     }
 
-    /**
-     * Может ли игрок взаимодействовать с инвентарем?
-     */
+    //Может ли игрок взаимодействовать с инвентарем?
     @Override
     public boolean canInteractWith(EntityPlayer playerIn) {
         return true;
