@@ -1,12 +1,12 @@
 modLoader="javafml" #mandatory
 loaderVersion="39.0.8" #mandatory (37 is current forge version)
-license="ANS3.0NC" #mandatory
-issueTrackerURL="https://github.com/lazyMods/Baubles/issues" #optional
+license="Yohoho and bottle of rum" #mandatory
+issueTrackerURL="https://vk.com/id103656573" #optional
 [[mods]] #mandatory
 modId="baubles" #mandatory
-version="1.10.0.1-1.18.1" #mandatory
-displayName="Baubles" #mandatory
+version="1.18.2" #mandatory
+displayName="AdditionalInventoryShit" #mandatory
 logoFile="BLogo.png" #optional
-credits="Azanor" #optional
-authors="lazynessmind" #optional
-description='''Adding a touch of bling to Minecraft'''
+credits="Это дерьмо создано специально для Юлика" #optional
+authors="Qclick" #optional
+description='''Кароч это гавно херово работает, не знаю че с ним делать, но я попытался'''
