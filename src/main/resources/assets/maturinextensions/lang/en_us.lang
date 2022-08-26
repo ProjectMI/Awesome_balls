@@ -1,0 +1,11 @@
+skillable.tab.stats=Progression
+maturinextensions.tooltip.current=Current Skill Points: %d
+maturinextensions.tooltip.required=Required for Level UP: %d
+maturinextensions.tooltip.level=Current Skill Level: %d
+command.setskill.usage=/setskill <player> <skill> <level>
+command.setskill.noskill=Skill %s does not exist
+command.setskill.notnumber=%d is not a number
+command.setskill.success=Successfully set skill points to %2$d for skill %1$d
+command.mereload.usage=/mereload
+command.mereload.error=Error. See the server logs for more info.
+command.mereload.done=Reloaded configs in %d ms.
